@@ -1,17 +1,12 @@
-# syntax=docker/dockerfile:1
-FROM node:14.15.4 as base
+FROM golang:alpine
+ENV CGO_ENABLED=0
 
-WORKDIR /code
-
-COPY package.json package.json
-COPY package-lock.json package-lock.json
-
-FROM base as test
-RUN npm ci
+WORKDIR /app
 COPY . .
-RUN npm run test
 
-FROM base as prod
-RUN npm ci --production
-COPY . .
-CMD [ "node", "server.js" ]
+RUN go mod download
+RUN go build -o main .
+
+EXPOSE $PORT
+
+CMD [ "./main" ]

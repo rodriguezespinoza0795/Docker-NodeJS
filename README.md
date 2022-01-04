@@ -1,8 +1,29 @@
-<!-- Build image -->
-docker build --tag node-docker .
-<!-- Run in detached mode -->
-docker run -d -p 8000:8000 node-docker
-<!-- Use Compose to develop locally -->
-docker-compose -f docker-compose.dev.yml up --build
-<!-- Use Compose to develop locally and run tests -->
-docker-compose -f docker-compose.dev.yml run notes npm run test
+# Creating a CI/CD Environment for Serverless Containers on Google Cloud Run
+
+## Architecture
+
+This is how our infrastructure works:
+
+![cover](images/cover.png)
+
+## Golang
+
+Running:
+
+```bash
+$ go run server.go
+```
+
+Running tests:
+
+```bash
+$ go test -v
+```
+
+Running Dockerfile:
+
+```bash
+$ docker build . -t example
+
+$ docker run -p 8000:8000 --env PORT=8000 example
+```
