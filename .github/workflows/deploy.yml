@@ -4,8 +4,7 @@ on:
     branches:
       - main
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
